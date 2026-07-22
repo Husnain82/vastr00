@@ -332,6 +332,15 @@
 
     {% sections 'header-group' %}
 
+    <pre>
+    {% if request.design_mode %}
+        This is Design mode
+      {%- else -%}
+      This is not desing mode     
+
+    {% endif %}   
+    </pre>
+
     <main
       id="MainContent"
       class="content-for-layout focus-none"
