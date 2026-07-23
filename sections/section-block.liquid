@@ -1,0 +1,96 @@
+{% style %}
+  {% for block in section.blocks %}
+    .block-{{ block.id }} {
+      background-color: {{ block.settings.bg-color }};
+      color: {{ block.settings.text-color }};
+    }
+  {% endfor %}
+{% endstyle %}
+
+
+{% comment %} <h1 class="lorem-ipsum">{{ section.settings.title }}</h1> {% endcomment %}
+<div style="text-align: {{ section.settings.text_alignment }};">
+    {%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'title' -%}
+        <h2 class="block-{{ block.id }}">TITLE</h2>
+    {%- when 'subtitle' -%}
+        <h3 class="block-{{ block.id }}">SUBTITLE</h3>
+  {%- endcase -%}
+{%- endfor -%}
+</div>
+
+
+{% schema %}
+    {
+        "name": "Section Block",
+        "class": "lorem",
+        "settings": [
+            {
+                "type": "select",
+                "id": "text_alignment",
+                "label": "Text Alignment",
+                "default": "center",
+                "info": "Alligns the text",
+                "options": [
+                    {
+                        "value": "left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "right",
+                        "label": "Right"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Section Block"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "title",
+                "name": "Title",
+                "settings": [
+            {
+                "type": "color",
+                "id": "bg-color",
+                "label": "Background Color",
+                "default": "#000000"
+            },
+            {
+                "type": "color",
+                "id": "text-color",
+                "label": "Text Color",
+                "default": "#fff"
+            }
+            
+        ]
+            },
+            {
+                "name": "Subtitle",
+                "type": "subtitle",
+                "settings": [
+                               {
+                "type": "color",
+                "id": "bg-color",
+                "label": "Background Color",
+                "default": "#000000"
+            },
+            {
+                "type": "color",
+                "id": "text-color",
+                "label": "Text Color",
+                "default": "#fff"
+            }
+                ]
+            }
+        ]
+    }
+{% endschema %}
