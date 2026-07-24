@@ -1,6 +1,4 @@
-{% liquid
-  assign badge_position = section.settings.badge_position
-%}
+{% assign badge_position = section.settings.badge_position %}
 
 <style>
   .vet-approved {
@@ -21,20 +19,23 @@
 
   .vet-approved__image-wrapper {
     position: relative;
-    border-radius: 6px;
-    overflow: hidden;
+    display: inline-block;
+    width: 100%;
   }
 
   .vet-approved__image {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 6px;
   }
 
   .vet-approved__badge {
     position: absolute;
     width: 82px;
-    height: auto;
+    height: 82px;
+    object-fit: contain;
+    z-index: 2;
   }
 
   .badge-top-left {
@@ -77,8 +78,8 @@
 
   .vet-approved__text {
     font-size: 16px;
-    color: #555;
     line-height: 1.7;
+    color: #555;
     max-width: 500px;
     margin: 0 auto 28px;
   }
@@ -91,7 +92,7 @@
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
-    transition: .25s;
+    transition: .3s;
   }
 
   .vet-approved__button:hover {
@@ -99,7 +100,6 @@
   }
 
   @media screen and (min-width: 750px) {
-
     .vet-approved__card {
       grid-template-columns: 1fr 1fr;
       gap: 60px;
@@ -111,14 +111,13 @@
 
     .vet-approved__text {
       margin-left: 0;
+      margin-right: 0;
     }
-
   }
 </style>
 
 <section class="vet-approved">
   <div class="vet-approved__wrapper">
-
     <div class="vet-approved__card">
 
       <div class="vet-approved__image-wrapper">
@@ -128,20 +127,21 @@
             section.settings.main_image
             | image_url: width: 900
             | image_tag:
-              loading: 'lazy',
               class: 'vet-approved__image',
+              loading: 'lazy',
               alt: section.settings.heading
           }}
         {% endif %}
 
         {% if section.settings.badge_image != blank %}
-          {{
-            section.settings.badge_image
-            | image_url: width: 180
-            | image_tag:
-              loading: 'lazy',
-              class: 'vet-approved__badge badge-' | append: badge_position
-          }}
+          <img
+            src="{{ section.settings.badge_image | image_url: width: 180 }}"
+            alt="Badge"
+            class="vet-approved__badge badge-{{ badge_position }}"
+            loading="lazy"
+            width="82"
+            height="82"
+          >
         {% endif %}
 
       </div>
@@ -178,7 +178,6 @@
       </div>
 
     </div>
-
   </div>
 </section>
 
