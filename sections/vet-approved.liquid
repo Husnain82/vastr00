@@ -1,0 +1,261 @@
+{% liquid
+  assign badge_position = section.settings.badge_position
+%}
+
+<style>
+  .vet-approved {
+    padding: 60px 20px;
+  }
+
+  .vet-approved__wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .vet-approved__card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .vet-approved__image-wrapper {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .vet-approved__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .vet-approved__badge {
+    position: absolute;
+    width: 82px;
+    height: auto;
+  }
+
+  .badge-top-left {
+    top: 16px;
+    left: 16px;
+  }
+
+  .badge-top-right {
+    top: 16px;
+    right: 16px;
+  }
+
+  .badge-bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .badge-bottom-right {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .vet-approved__content {
+    text-align: center;
+  }
+
+  .vet-approved__doctor {
+    color: #d97b00;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .vet-approved__title {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+
+  .vet-approved__text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 28px;
+  }
+
+  .vet-approved__button {
+    display: inline-block;
+    padding: 15px 36px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: .25s;
+  }
+
+  .vet-approved__button:hover {
+    background: #333;
+  }
+
+  @media screen and (min-width: 750px) {
+
+    .vet-approved__card {
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .vet-approved__content {
+      text-align: left;
+    }
+
+    .vet-approved__text {
+      margin-left: 0;
+    }
+
+  }
+</style>
+
+<section class="vet-approved">
+  <div class="vet-approved__wrapper">
+
+    <div class="vet-approved__card">
+
+      <div class="vet-approved__image-wrapper">
+
+        {% if section.settings.main_image != blank %}
+          {{
+            section.settings.main_image
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              class: 'vet-approved__image',
+              alt: section.settings.heading
+          }}
+        {% endif %}
+
+        {% if section.settings.badge_image != blank %}
+          {{
+            section.settings.badge_image
+            | image_url: width: 180
+            | image_tag:
+              loading: 'lazy',
+              class: 'vet-approved__badge badge-' | append: badge_position
+          }}
+        {% endif %}
+
+      </div>
+
+      <div class="vet-approved__content">
+
+        {% if section.settings.doctor_name != blank %}
+          <div class="vet-approved__doctor">
+            {{ section.settings.doctor_name }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="vet-approved__title">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="vet-approved__text">
+            {{ section.settings.text }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_text != blank %}
+          <a
+            href="{{ section.settings.button_link }}"
+            class="vet-approved__button"
+          >
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Veterinarian Approved",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "label": "Badge position",
+      "default": "top-left",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "doctor_name",
+      "label": "Doctor name",
+      "default": "Dr. Ernie Sanderson"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Veterinarian-Approved"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>All products from Dr. Ernie's are vetted and approved by a qualified veterinarian, ensuring top-quality care for your pet.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View Products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Veterinarian Approved"
+    }
+  ]
+}
+{% endschema %}
