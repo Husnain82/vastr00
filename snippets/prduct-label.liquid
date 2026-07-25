@@ -3,9 +3,9 @@
 {% if labels != blank %}
   <div class="product-labels">
     {% for label in labels %}
-      {% assign background_color = label.color %}
-      {% assign txt_color = label.title_color %}
-      {% assign text_color = background_color | color_lighten: 100 %}
+      {%- assign background_color = label.color -%}
+      {%- assign color_string = "" | append: background_color -%}
+      {%- assign txt_color = color_string | color_lighten: 100 -%}
 
       <small
         class="product-label"
