@@ -1,7 +1,7 @@
-{%- assign label = product.metafields.custom.label.value -%}
+{%- assign label = product.metafields.custom.labels.value -%}
 
 <div class="product-labels">
-    {%- for label in label -%}
+    {%- for label in labels -%}
         
         {%- assign background_color = label.color -%}
         {%- assign color_string = "" | append: background_color -%}
