@@ -20,6 +20,30 @@
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
+<style>
+  .product-card-wrapper {
+    position: relative;
+  }
+  
+  .product-labels {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 5px;
+    
+  }
+  .product-label {
+    padding: 2px 5px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    width: fit-content;
+  }
+</style>
 {%- unless skip_styles -%}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -43,7 +67,7 @@
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
     <div class="card-wrapper product-card-wrapper underline-links-hover">
-      {%- render 'prduct-label', product: product -%}
+      {%- render 'prduct-label', product: card_product -%}
       <div
         class="
           card card--{{ settings.card_style }}
