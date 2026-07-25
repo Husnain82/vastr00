@@ -1,13 +1,17 @@
-{%- assign label = product.metafields.custom.labels.value -%}
+{%- assign labels = product.metafields.custom.labels.value -%}
 
-<div class="product-labels">
-    {%- for label in labels -%}
-        
-        {%- assign background_color = label.color -%}
-        {%- assign color_string = "" | append: background_color -%}
-        {%- assign text_color = color_string |  color_lighten: 100 -%}
-        
-        <small class="product-label" style="background-color: {{ background_color }}; color: {{ color_string }};"> {{ label.title }}</small>
+{% if labels != blank %}
+  <div class="product-labels">
+    {% for label in labels %}
+      {% assign background_color = label.color %}
+      {% assign txt_color = label.title_color %}
+      {% assign text_color = background_color | color_lighten: 100 %}
 
-    {%- endfor -%}
-</div>
+      <small
+        class="product-label"
+        style="background-color: {{ background_color }}; color: {{ txt_color }};">
+        {{ label.title }}
+      </small>
+    {% endfor %}
+  </div>
+{% endif %}
