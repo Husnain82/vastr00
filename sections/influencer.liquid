@@ -1,0 +1,59 @@
+{% assign influencer = product.metafields.custom.product_influencer.value %}
+
+<section class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+
+    {% if influencer %}
+    <div class="image-with-text">
+        <div class="image-with-text__media">
+
+          {% if influencer.image %}
+            {{ influencer.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '375,550,750,900', class: 'image-with-text__image' }}
+          {% endif %}
+
+        </div>
+
+        <div class="image-with-text__content">
+
+          {% if influencer.name != blank %}
+            <h2 class="image-with-text__heading h1">{{ influencer.name }}</h2>
+          {% endif %}
+
+          {% if influencer.details != blank %}
+            <div class="rte">
+              {{ influencer.details |  metafield_tag }}
+            </div>
+          {% endif %}
+
+        </div>
+    </div>
+
+    {% else %}
+
+      <div class="center">
+        <p>This product does not have an influencer.</p>
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Influencer",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Influencer"
+    }
+  ]
+}
+{% endschema %}

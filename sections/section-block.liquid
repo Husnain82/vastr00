@@ -13,9 +13,9 @@
     {%- for block in section.blocks -%}
   {%- case block.type -%}
     {%- when 'title' -%}
-        <h2 class="block-{{ block.id }}">TITLE</h2>
+        <h2 class="block-{{ block.id }}">{{ section.settings.title }}</h2>
     {%- when 'subtitle' -%}
-        <h3 class="block-{{ block.id }}">SUBTITLE</h3>
+        <h3 class="block-{{ block.id }}">{{ section.settings.subtitle }}</h3>
   {%- endcase -%}
 {%- endfor -%}
 </div>
@@ -26,6 +26,18 @@
         "name": "Section Block",
         "class": "lorem",
         "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Title"
+            },
+            {
+                "type": "text",
+                "id": "subtitle",
+                "label": "Subtitle",
+                "default": "Subtitle"
+            },            
             {
                 "type": "select",
                 "id": "text_alignment",
