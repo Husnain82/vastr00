@@ -170,6 +170,15 @@
             </div>
           </div>
         </div>
+      
+<variant-swatches style="z-index:10; position:relative; cursor:pointer; display:flex; flex-wrap:wrap; width:100%; gap:2px;">
+  {% for variant in card_product.variants %}
+    {% if variant.featured_image %}
+      <img class="swatch-image" src="{{ variant.featured_image | image_url: width: 100 }}" alt="{{ variant.title }}" style="width:24%; cursor:pointer;">
+    {% endif %}
+  {% endfor %}
+</variant-swatches>
+
         <div class="card__content">
           <div class="card__information">
             <h3
